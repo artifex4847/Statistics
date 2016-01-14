@@ -1,0 +1,52 @@
+ods html; 
+ods listing close; 
+ods graphics on; 
+
+Data figure415;
+y=0;
+e1=0;
+do t=1 to 200;
+   if t=1 then do; 
+        e=normal(0);
+        y=0.5*y+e-0.5*e1;
+        if t>100 then output;
+        end;
+   else do;
+        e1=e;
+        temp=y;
+        e=normal(0);
+        y=0.5*y+e-0.5*e1;
+        y1=lag(y);
+        y2=lag2(y);
+        y3=lag3(y);
+        if t>100 then output;        
+        end;
+end;
+drop temp;
+run;
+
+Proc gplot data=figure415; 
+      symbol i=spline v=circle h=1.5; 
+      plot y * t;
+      title 'Simulated series of ARMA(1,1) with (0.5,-0.5)';
+   run;
+     symbol i= v=circle h=1; 
+      plot y * y1;
+      title 'Scatter plot (y,y1)';
+   run;
+    symbol i= v=circle h=1; 
+      plot y * y2;
+      title 'Scatter plot (y,y2)';
+   run;
+      symbol i= v=circle h=1; 
+      plot y * y3;
+      title 'Scatter plot (y,y3)';
+   run;
+
+Proc autoreg data=figure415;
+   model y=t/dw=12 dwprob normal;
+ run;
+
+ods graphics off;
+ods html close;
+ods listing;

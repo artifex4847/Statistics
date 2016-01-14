@@ -1,0 +1,20 @@
+
+
+
+ods listing close;
+ods html;
+ods graphics on;
+data xiti2;
+do t=1 to 48;
+   y1=normal(0);
+   output;
+end;
+run;
+proc gplot data=xiti2;
+symbol c=red I=jion v=circle;
+plot y1*t;
+title "正态独立随机数模拟";
+run;
+ods graphics off;
+ods html close;
+ods listing;

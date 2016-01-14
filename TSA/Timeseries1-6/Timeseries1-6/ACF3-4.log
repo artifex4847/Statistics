@@ -1,0 +1,165 @@
+1                                                             SAS 系统                        2013年05月25日 星期六 上午09时22分14秒
+
+NOTE: 无法打开 SASUSER.REGSTRY。系统将改为打开 WORK.REGSTRY。
+NOTE: 所有注册表的更改将在会话结束后丢失。
+
+WARNING: 无法将 SASUSER 注册表复制到 WORK 注册表中。因此在该会话过程中，您不会看到注册表定制情况。
+WARNING: 连接逻辑库“SASHELP”中指定的一个或多个逻辑库不存在。这些逻辑库已从连
+WARNING: 接中删除。
+NOTE: 无法打开 SASUSER.PROFILE。系统将改为打开 WORK.PROFILE。
+NOTE: 所有配置文件的更改将在会话结束后丢失。
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0 DBCS3060) 
+      Licensed to LICENCE GRATUITE EAS + MINER DESKTOP  WIN 64 BITS, Site 70109267.
+NOTE: 该会话正在平台 X64_7HOME  上执行。
+
+
+
+NOTE: “SAS 初始化”所用时间:
+      实际时间          4.64 秒
+      CPU 时间          0.51 秒
+      
+1          ods html;
+NOTE: 正在写入 HTML Body（主体）文件: sashtml.htm
+2          ods listing close;
+3          ods graphics on;
+4          libname TS3 'c:\Library_timeseries';
+NOTE: 逻辑库“TS3”不存在。
+5          
+6           proc timeseries data=TS3.sresiduals34 plot=ACF;
+ERROR: 逻辑库“TS3”不存在。
+7               id year interval=year accumulate=total;
+8               var sresiduals;
+ERROR: 没有打开的数据集可用来查找变量。
+9               title 'Sample ACF for residuals from global temperature data';
+10            run;
+
+NOTE: 由于出错，SAS 系统停止处理该步。
+NOTE: SAS 设置选项 OBS=0，并将继续检查语句。 这可能导致出现“NOTE: 数据集中没有观测”消息。
+WARNING: 数据集 WORK.DATA1 可能不完整。该步停止时，共有 0 个观测和 0 个变量。
+NOTE: “PROCEDURE TIMESERIES”所用时间（总处理时间）:
+      实际时间          0.31 秒
+      CPU 时间          0.03 秒
+      
+11         
+
+
+12         Data TS2.figure21_1;
+13         do month=1 to 100;
+14         y=normal(0);
+15         output;
+16         end;
+17         run;
+
+ERROR: 没有分配逻辑库引用名 TS2。
+NOTE: “DATA 语句”所用时间（总处理时间）:
+      实际时间          0.17 秒
+      CPU 时间          0.00 秒
+      
+
+18         Proc gplot data= TS2.figure21_1;
+2                                                             SAS 系统                        2013年05月25日 星期六 上午09时22分14秒
+
+ERROR: 没有分配逻辑库引用名 TS2。
+19               symbol i=spline v=circle h=1.5;
+20               plot y * month;
+ERROR: 没有打开的数据集可用来查找变量。
+ERROR: 没有打开的数据集可用来查找变量。
+21               title 'The first simulated realization of white noise N(0,1)';
+22            run;
+
+WARNING: 由于以前的错误 RUN 语句被忽略。请提交 QUIT; 终止过程。
+23         
+
+NOTE: 由于出错，SAS 系统停止处理该步。
+NOTE: “PROCEDURE GPLOT”所用时间（总处理时间）:
+      实际时间          0.52 秒
+      CPU 时间          0.06 秒
+      
+
+
+24          proc timeseries data=TS2.figure21_1 plot=ACF;
+ERROR: 没有分配逻辑库引用名 TS2。
+25              id month interval=month;
+ERROR: 没有打开的数据集可用来查找变量。
+26              var y;
+ERROR: 没有打开的数据集可用来查找变量。
+27            run;
+
+NOTE: 由于出错，SAS 系统停止处理该步。
+WARNING: 数据集 WORK.DATA2 可能不完整。该步停止时，共有 0 个观测和 0 个变量。
+NOTE: “PROCEDURE TIMESERIES”所用时间（总处理时间）:
+      实际时间          0.00 秒
+      CPU 时间          0.01 秒
+      
+28         /*
+29         
+30            proc autoreg data=TS2.figure21_1 all;
+31               model y = month / nlag=2 method=ml;
+32              /* output out=p p=yhat pm=ytrend
+33                         lcl=lcl ucl=ucl;*/
+34         				run;
+35         
+
+
+36         Data TS2.figure21_2;
+37         do month=1 to 100;
+38         y=normal(0);
+39         output;
+40         end;
+41         run;
+
+ERROR: 没有分配逻辑库引用名 TS2。
+NOTE: “DATA 语句”所用时间（总处理时间）:
+      实际时间          0.00 秒
+      CPU 时间          0.00 秒
+      
+
+42         Proc gplot data= TS2.figure21_2;
+ERROR: 没有分配逻辑库引用名 TS2。
+43               symbol i=spline v=circle h=1.5;
+3                                                             SAS 系统                        2013年05月25日 星期六 上午09时22分14秒
+
+44               plot y * month;
+ERROR: 没有打开的数据集可用来查找变量。
+ERROR: 没有打开的数据集可用来查找变量。
+45               title 'The second simulated realization of white noise N(0,1)';
+46            run;
+
+WARNING: 由于以前的错误 RUN 语句被忽略。请提交 QUIT; 终止过程。
+47         
+
+NOTE: 由于出错，SAS 系统停止处理该步。
+NOTE: “PROCEDURE GPLOT”所用时间（总处理时间）:
+      实际时间          0.04 秒
+      CPU 时间          0.01 秒
+      
+
+
+48          proc timeseries data=TS2.figure21_2 plot=ACF;
+ERROR: 没有分配逻辑库引用名 TS2。
+49              id month interval=month accumulate=total;
+ERROR: 没有打开的数据集可用来查找变量。
+50              var y;
+ERROR: 没有打开的数据集可用来查找变量。
+51            run;
+
+NOTE: 由于出错，SAS 系统停止处理该步。
+WARNING: 数据集 WORK.DATA3 可能不完整。该步停止时，共有 0 个观测和 0 个变量。
+NOTE: “PROCEDURE TIMESERIES”所用时间（总处理时间）:
+      实际时间          0.00 秒
+      CPU 时间          0.00 秒
+      
+52         
+53         
+54         ods graphics off;
+55         ods html close;
+56         ods listing;
+
+ERROR: 在以下页上打印错误: 1,2,3.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: “SAS 系统”所用时间:
+      实际时间          11.53 秒
+      CPU 时间          1.32 秒
+      

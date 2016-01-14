@@ -1,0 +1,103 @@
+1                                                             SAS 系统                        2013年05月25日 星期六 上午09时27分48秒
+
+NOTE: 无法打开 SASUSER.REGSTRY。系统将改为打开 WORK.REGSTRY。
+NOTE: 所有注册表的更改将在会话结束后丢失。
+
+WARNING: 无法将 SASUSER 注册表复制到 WORK 注册表中。因此在该会话过程中，您不会看到注册表定制情况。
+WARNING: 连接逻辑库“SASHELP”中指定的一个或多个逻辑库不存在。这些逻辑库已从连
+WARNING: 接中删除。
+NOTE: 无法打开 SASUSER.PROFILE。系统将改为打开 WORK.PROFILE。
+NOTE: 所有配置文件的更改将在会话结束后丢失。
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0 DBCS3060) 
+      Licensed to LICENCE GRATUITE EAS + MINER DESKTOP  WIN 64 BITS, Site 70109267.
+NOTE: 该会话正在平台 X64_7HOME  上执行。
+
+
+
+NOTE: “SAS 初始化”所用时间:
+      实际时间          0.69 秒
+      CPU 时间          0.35 秒
+      
+1          
+2          ods listing close;
+3          ods html;
+NOTE: 正在写入 HTML Body（主体）文件: sashtml.htm
+4          ods graphics on;
+5          libname TS0 'c:\Library_timeseries';
+NOTE: 逻辑库“TS0”不存在。
+6          
+7          Data TS0.example00;
+8          infile 'C:\Data_cru\NH_year.dat';
+9          input temperature @@;
+10         year=intnx('year','1jan1850'd, _N_-1);
+11         format year year4.;
+12         run;
+
+ERROR: 逻辑库“TS0”不存在。
+NOTE: 由于出错，SAS 系统停止处理该步。
+NOTE: SAS 设置选项 OBS=0，并将继续检查语句。 这可能导致出现“NOTE: 数据集中没有观测”消息。
+NOTE: “DATA 语句”所用时间（总处理时间）:
+      实际时间          0.02 秒
+      CPU 时间          0.01 秒
+      
+
+13         
+14         symbol interpol=spline
+15                value=circle
+16         	   color=blue
+17                height=1;
+18         		
+19         Proc gplot data= TS0.example00;
+ERROR: 逻辑库“TS0”不存在。
+20            plot temperature * year;
+ERROR: 没有打开的数据集可用来查找变量。
+ERROR: 没有打开的数据集可用来查找变量。
+21            title 'Global temperature from 1850 to 2011';
+22         run;
+
+WARNING: 由于以前的错误 RUN 语句被忽略。请提交 QUIT; 终止过程。
+23         
+2                                                             SAS 系统                        2013年05月25日 星期六 上午09时27分48秒
+
+
+NOTE: 由于出错，SAS 系统停止处理该步。
+NOTE: “PROCEDURE GPLOT”所用时间（总处理时间）:
+      实际时间          0.02 秒
+      CPU 时间          0.01 秒
+      
+
+
+24         Proc reg data=TS0.example00;
+ERROR: 逻辑库“TS0”不存在。
+25         model  temperature=year;
+ERROR: 没有打开的数据集可用来查找变量。
+ERROR: 没有打开的数据集可用来查找变量。
+26         title 'A simple regression';
+27         run;
+
+WARNING: 由于以前的错误 RUN 语句被忽略。请提交 QUIT; 终止过程。
+NOTE: “PROCEDURE REG”所用时间（总处理时间）:
+      实际时间          0.00 秒
+      CPU 时间          0.01 秒
+      
+NOTE: 由于出错，SAS 系统停止处理该步。
+28         
+29         
+30         ods graphics off;
+31         ods html close;
+32         ods listing;
+33         
+34         
+35         
+36         
+37         
+
+
+ERROR: 在以下页上打印错误: 1,2.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: “SAS 系统”所用时间:
+      实际时间          1.40 秒
+      CPU 时间          0.87 秒
+      
