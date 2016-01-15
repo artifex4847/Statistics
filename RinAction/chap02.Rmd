@@ -1,0 +1,54 @@
+---
+title: "RiA_chap02"
+author: "Artifex"
+date: "2016-1-15"
+output: pdf_document
+---
+
+## Create a Dataset
+
+### 1. Understanding datasets
+1. Data structure:
+  - scalar, vector, array, data frame, list
+  - 存储数据的工具，类似于碗、盘子、碟子，是一个容器
+
+2. Data type(mode):
+  - numeric, character, logical, complex, raw(bytes)
+  - 数据，类似于米饭、菜、花生米，是容器内的东西
+  
+### 2. Data Structures
+1. Vector
+  - **One-dimensional** array that holds **single mode** of data.
+  - Use c() to create a vector.
+  - Select the elements in a vetor.
+```{r}
+a <- c(1, -2, 3, -4, 5, -6)
+a[2] # use a scalar to select the element
+a[c(1, 2, 4)]  # use a numeric vector to select the elements
+```
+
+2. Matrix
+  - **Two-dimensional** array that holds **single mode** of data.
+  - Use matrix() function to create a vector.
+  - Select the elements in a matrix.
+```{r}
+x <- matrix(1:24, nrow=6)
+x
+y <- matrix(1:24, nrow=6, byrow=TRUE) # byrow=FALSE by default
+y
+
+cells <- c(1,26,24,68)
+rnames <- c("R1", "R2")
+cnames <- c("C1", "C2")
+mymatrix <- matrix(cells, nrow=2, ncol=2, byrow=TRUE, 
+                   dimnames=list(rnames, cnames))
+mymatrix
+# retrieve data from a matrix
+x[2, ] # the entire 2nd row
+x[, 3] # the entire 3rd col
+x[2, 3] # the element at 2rd row, 3rd col
+x[c(2:4), c(1:3)] # a sub matrix
+```
+
+3. Array
+

@@ -1,0 +1,91 @@
+---
+title: "R Plotting Basics"
+author: "Artifex"
+date: "2016-1-15"
+output: html_document
+---
+
+## 一个示例
+### 1. 展示R语言的画图能力
+下面这幅图仅仅是展示R的图形能力，不需要注意代码的细节
+```{r}
+attach(mtcars)
+plot(wt, mpg)
+abline(lm(mpg~wt))
+title("Regression of MPG on Weight")
+detach(mtcars)
+```
+
+这幅优雅的图只用了5行代码，很赞不是么？
+
+### 2. 怎样保存画图？
+
+```{r}
+pdf("mygraph.pdf")
+  # 将画图的代码放入pdf()和dev.off()两个函数中间即可
+  # 画图代码的缩进不是必须的，这里是为了增加代码的可读性
+  attach(mtcars)
+  plot(wt, mpg)
+  abline(lm(mpg~wt))
+  title("Regression of MPG on Weight")
+  detach(mtcars)
+  # 图片被保存在mygraph.pdf的文件中
+dev.off()
+```
+
+除了pdf格式之外，还可以用其它函数存储成其它格式，例如：win.metafile(), png(), jpeg(), bmp(), tiff(), xfig(), postscript()等。
+
+### 3. 使用dev族函数操作多个画图窗口
+- dev.new(): 新建一个画图窗口
+- dev.prev(): 上一个画图窗口
+- dev.next(): 下一个画图窗口  
+- dev.set(): 设置某窗口为活动窗口，画图命令在此窗口画图
+- dev.cur(): 返回当前活动的画图窗口
+- dev.list(): 返回当前所有打开的画图窗口
+- dev.off(): 关闭当前的活动窗口
+
+## 一个简单的例子
+```{r}
+dose <- c(20, 30, 40, 45, 60)
+drugA <- c(16, 20, 27, 40, 60)
+drugB <- c(15, 18, 25, 31, 40)
+plot(dose, drugA, type='b')
+```
+
+R语言中，x-y图可以用plot(x, y, *options*)来完成，其中一个重要的option就是type。
+
+type = 
+
+  - "p" for points,
+  - "l" for lines,
+  - "b" for both,
+  - "c" for the lines part alone of "b",
+  - "o" for both ‘overplotted’,
+  - "h" for ‘histogram’ like (or ‘high-density’) vertical lines,
+  - "s" for stair steps,
+  - "S" for other steps, 
+  - "n" for no plotting.
+  
+# 调整图形参数
+图形的很多参数都可以调整，包括颜色、图形格式、坐标轴、标题、标签等几大类。par()函数返回一系列当前的图形设定，共有`r length(par())`个属性。这里选择性的介绍一些常见的属性，部分不常见的属性通常选择默认值即可，如果要修改，请查询help文档。
+
+> 一个小技巧：par()函数的no.readonly=TRUE允许用户自行修改相关属性，最好使用一个变量记录原来的默认属性，在完成相关画图任务后，将默认属性还原。比如下面这样：
+```{r}
+# opar <- par(no.readonly=TRUE)
+# # plotting code
+# ......
+# # plotting code end
+# par(opar)
+```
+
+1. 符号和线条
+
+四个最常用的参数：
+
+- lty: 线条形状，取值1~6，default=1
+- lwd: 线条宽度，default=1
+- pch: 符号的样式，取值0~25，default=1
+- cex: 符号大小，default=1
+
+
+

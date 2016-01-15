@@ -1,0 +1,32 @@
+---
+title: "RiA_Chap01"
+author: "Artifex"
+date: "2016-1-15"
+output: html_document
+---
+
+## Introduction to R
+
+### 1. Why use R?
+1. R is free, and open-source.
+2. R is popular among statistical community, so there are a lot of support.
+3. Cross-platform, state-of-the-art graphical capabilities, easy-to-use.
+
+### 2. How to install R?
+ - **TODO**
+ 
+### 3. Batch Processing
+1. On Linux or Mac
+- R CMD BATCH options infile outfile
+
+2. On Windows
+- R CMD BATCH --vanilla --slave Rfile
+
+### 4. Working Through an Example
+```{r}
+help(package="vcd")
+library(vcd)
+help(Arthritis)
+Arthritis
+example(Arthritis)
+```

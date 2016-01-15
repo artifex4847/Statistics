@@ -1,0 +1,18 @@
+# pdf("mygraph.pdf")
+# attach(mtcars)
+# plot(wt, mpg)
+# abline(lm(mpg~wt))
+# title("Regression of MPG on Weight")
+# detach(mtcars)
+# dev.off()
+
+dose <- c(20, 30, 40, 45, 60)
+drugA <- c(16, 20, 27, 40, 60)
+drugB <- c(15, 18, 25, 31, 40)
+
+opar <- par(no.readonly=T)
+par(pin=c(2, 3), lwd=2, cex=1.5)
+par(cex.axis=0.75, font.axis=3)
+plot(dose, drugA, type='b', pch=19, lty=2, col='red')
+plot(dose, drugB, type='b', pch=23, lty=6, col='blue', bg='green')
+par(opar)
